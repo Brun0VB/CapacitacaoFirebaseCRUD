@@ -24,9 +24,17 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@font-face {
+	font-family: 'Rosemary';
+	src: url(./assets/DroidSans.ttf)
+}
+
+*{
+  font-family: 'Rosemary';
+}
 
 .content-basico {
-  --background: linear-gradient(180deg, #a0a0a0 40.61%, rgba(173, 173, 173, 0.692) 116.69%);;
+  --background: #007fff;
   --background-size: cover;
   z-index: 5;
   position: sticky;
@@ -75,6 +83,7 @@ ion-back-button {
   color: #000000;
   margin-bottom: 15px;
   box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.3);
+  font-family: 'Rosemary';
 }
 
 .icon-login-cad {
