@@ -28,10 +28,29 @@
 
 .label-text{
   font-family: 'Rosemary';
+
 }
+
+.p-label{
+    color: #474747;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-evenly;
+}
+
+// .cpf{
+//   margin-left: 35%;
+// }
+
 
 ion-item{
   --background : #94c9ff;
-  --border-style: hidden;
   border-bottom: solid 1px black;
 }
+
+ion-list{
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+//ion-butto

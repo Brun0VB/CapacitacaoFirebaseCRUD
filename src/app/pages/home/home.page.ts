@@ -40,9 +40,57 @@ export class HomePage {
 
     //segunda maneira de chamar todos os documentos de uma coleção
     collectionRef.valueChanges().subscribe((data) => {
-      this.userVetor = data as User[];
+      this.userVetor = data as User[];   
+      this.setExpandedFalse();
       console.log(this.userVetor);
+    });
+
+    
+  }
+
+  async deleteUser(user: User): Promise<void> {
+    const alert = await this.alertCtrl.create({
+      header: 'Atenção',
+      message: 'Deseja realmente excluir o usuário?',
+      buttons: [
+        {
+          text: 'Sim',
+          handler: async () => {
+            try {
+              await this.firebaseService.deleteUser(user.uid);
+              this.toast.showToast('Usuário excluído com sucesso!');
+            } catch (error) {
+              this.toast.showToast('Erro ao excluir usuário!');
+            }
+          },
+        },
+        {
+          text: 'Não',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  setExpandedFalse(){
+   this.userVetor.forEach(item => {
+      item.isExpanded = false;
     });
   }
 
+  expand(i: number){
+    this.userVetor[i].isExpanded = !this.userVetor[i].isExpanded;
+    console.log(this.userVetor);
+  }
+
+  deleteCampo(user: User,campo: string){
+    this.firebaseService.deleteCampo(user, campo);
+    user.isExpanded = true;
+  }
+
+  update(user: User, campo: string, dado: any){
+
+  }
 }

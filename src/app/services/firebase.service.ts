@@ -2,24 +2,23 @@ import { User } from './../interfaces/user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Data } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 import FirebaseErrorHandler from '../lib/firebase-error-handler.service';
 import { ToastService } from './toast.service';
 import { NavegacaoService } from './navegacao.service';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
+
   private userID: any;
 
   constructor(
     private auth: AngularFireAuth,
     private fireStore: AngularFirestore,
-    private fireStorage: AngularFireStorage,
     private storageService: StorageService,
     private toastService: ToastService,
     private navCtrl: NavController,
@@ -76,5 +75,34 @@ export class FirebaseService {
 
   public getDetails(uid: any) {
     return this.fireStore.collection('users').doc(uid).get();
+  }
+
+  public async deleteUser(uid: string): Promise<void> {
+    try {
+      await this.fireStore.collection('users').doc(uid).delete();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async deleteCampo(user: User,campo: string): Promise<void> {
+    const campoObj = {[campo]: null};
+    //const updateObject: { [key: string]: any } = {};
+    //updateObject[campo] = firebase.firestore.FieldValue.delete();
+    try {
+      await this.fireStore.collection('users').doc(user.uid).update(campoObj);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async updateUser(user: User,campo: string,dado: any): Promise<void> {
+    try {
+      await this.fireStore.collection('users').doc(user.uid).update({
+        [campo]: dado,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
