@@ -7,6 +7,8 @@ import { StorageService } from 'src/app/services/storage.service';
 import FirebaseErrorHandler from '../lib/firebase-error-handler.service';
 import { ToastService } from './toast.service';
 import { NavegacaoService } from './navegacao.service';
+import  firebase from 'firebase/compat';
+import 'firebase/firestore';
 
 
 @Injectable({
@@ -87,8 +89,8 @@ export class FirebaseService {
 
   public async deleteCampo(user: User,campo: string): Promise<void> {
     const campoObj = {[campo]: null};
-    //const updateObject: { [key: string]: any } = {};
-    //updateObject[campo] = firebase.firestore.FieldValue.delete();
+    const updateObject: { [key: string]: any } = {};
+    updateObject[campo] = firebase.firestore.FieldValue.delete();
     try {
       await this.fireStore.collection('users').doc(user.uid).update(campoObj);
     } catch (error) {
@@ -96,9 +98,9 @@ export class FirebaseService {
     }
   }
 
-  public async updateUser(user: User,campo: string,dado: any): Promise<void> {
+  public async updateUser(id: string,campo: string,dado: any): Promise<void> {
     try {
-      await this.fireStore.collection('users').doc(user.uid).update({
+      await this.fireStore.collection('users').doc(id).update({
         [campo]: dado,
       });
     } catch (error) {

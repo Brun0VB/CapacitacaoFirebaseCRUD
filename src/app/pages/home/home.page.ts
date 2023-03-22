@@ -73,6 +73,33 @@ export class HomePage {
 
     await alert.present();
   }
+  
+  async updateCampo(user: User, campo: string){
+    const alert = await this.alertCtrl.create({
+      //header: 'Please enter your info',    
+      inputs: [
+        {
+          placeholder: campo,
+          name: 'dadoInput',
+
+        },    
+      ],
+      buttons: [{
+        text: 'OK',
+        handler: async (dados) => {
+          try {
+            await this.firebaseService.updateUser(user.uid,campo,dados.dadoInput);
+            this.toast.showToast('Usuário atualizado com sucesso!');
+          } catch (error) {
+            this.toast.showToast('Erro ao atualizar usuário!');
+          }
+        },
+      }],
+    });
+
+    await alert.present();
+  }
+  
 
   setExpandedFalse(){
    this.userVetor.forEach(item => {
@@ -90,7 +117,6 @@ export class HomePage {
     user.isExpanded = true;
   }
 
-  update(user: User, campo: string, dado: any){
 
-  }
+
 }
