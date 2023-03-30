@@ -15,6 +15,7 @@ import { alertController } from '@ionic/core';
 export class HomePage {
   userVetor: User[] = [];
   segmentChange: String = 'visualizar';
+  documentData: any[] = [];
 
   constructor(
     private fireStore: AngularFirestore,
@@ -89,6 +90,35 @@ export class HomePage {
         handler: async (dados) => {
           try {
             await this.firebaseService.updateUser(user.uid,campo,dados.dadoInput);
+            this.toast.showToast('Usuário atualizado com sucesso!');
+          } catch (error) {
+            this.toast.showToast('Erro ao atualizar usuário!');
+          }
+        },
+      }],
+    });
+
+    await alert.present();
+  }
+
+  async createCampo(user: User){
+    const alert = await this.alertCtrl.create({
+      //header: 'Please enter your info',    
+      inputs: [
+        {
+          placeholder: 'campo',
+          name: 'campoInput',
+        },    
+        {
+          placeholder: 'dado',
+          name: 'dadoInput',
+        }
+      ],
+      buttons: [{
+        text: 'OK',
+        handler: async (dados) => {
+          try {
+            await this.firebaseService.updateUser(user.uid,dados.campoInput,dados.dadoInput);
             this.toast.showToast('Usuário atualizado com sucesso!');
           } catch (error) {
             this.toast.showToast('Erro ao atualizar usuário!');
