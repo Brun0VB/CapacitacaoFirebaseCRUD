@@ -11,33 +11,43 @@
 
     <div *ngIf="segmentChange == 'visualizar'">
       <ion-list lines="none">
-        <ion-item >
+        <ion-item>
           <ion-label><b>Nome</b></ion-label>
           <ion-label><b>CPF</b></ion-label>
         </ion-item>
-        <ion-item 
-          *ngFor="let user of userVetor; let i=index">
-          <ion-label class="label-text">{{user.nome}}{{user.cpf}}
-          <h2 *ngIf="user.isExpanded" class="p-label">
-            <h3 *ngFor="let field of user | keyvalue">
-              <h3 *ngIf="field.key != 'isExpanded' && field.value != null && field.key != 'uid'">
-                {{field.key}}: {{ field.value }}
+        <ion-item *ngFor="let user of userVetor; let i=index">
+          <ion-label class="label-text">
+
+            <ion-label >
+              <ion-text class="block-nome">{{user.nome}}</ion-text>
+              <ion-text >{{user.cpf}}</ion-text>
+            </ion-label>
+
+            <h2 *ngIf="user.isExpanded" class="p-label">
+              <h3 *ngFor="let field of user | keyvalue">
+                <h3 *ngIf="field.key != 'isExpanded' && field.value != null && field.key != 'uid'">
+                  {{field.key}}: {{ field.value }}
+                  <br>
+                  <ion-button class="delete-button" (click)="deleteCampo(user,field.key)">Delete</ion-button>
+                  <ion-button class="update-button" (click)="updateCampo(user,field.key)">Update</ion-button>
+                </h3>
+                <h3 *ngIf="field.key == 'uid'">
+                  {{field.key}}: {{ field.value }}
+                </h3>
+              </h3>
+              <h3 class="add-campo">
                 <br>
-                <ion-button class="delete-button" (click)="deleteCampo(user,field.key)">Delete</ion-button>
-                <ion-button class="update-button" (click)="updateCampo(user,field.key)">Update</ion-button>
-              </h3>             
-              <h3 *ngIf="field.key == 'uid'">
-                {{field.key}}: {{ field.value }}
-              </h3>             
-            </h3>
-          </h2></ion-label><br> 
-          <ion-icon *ngIf="!user.isExpanded" name="chevron-down-outline" (click)="expand(i)" ></ion-icon>
-          <ion-icon *ngIf="user.isExpanded" name="chevron-up-outline" (click)="expand(i)" ></ion-icon>
+                <ion-button class="add-campo-button" (click)="createCampo(user)">+ Campo</ion-button>
+                <ion-button class="delete-button" (click)="deleteUser(user)">Delete User</ion-button>
+              </h3>
+            </h2>
+          </ion-label><br>
+          <ion-icon *ngIf="!user.isExpanded" name="chevron-down-outline" (click)="expand(i)"></ion-icon>
+          <ion-icon *ngIf="user.isExpanded" name="chevron-up-outline" (click)="expand(i)"></ion-icon>
         </ion-item>
       </ion-list>
     </div>
 
   </div>
 
-  <!-- <ion-button (click)="update()"></ion-button> -->
 </ion-content>

@@ -19,28 +19,24 @@
 
 .segment {
   --background: #ffffff;
-
 }
 
 .segment-button:active {
   background-color: #002fff;
 }
 
+.label-text-1{
+  font-family: 'Rosemary';
+  white-space: nowrap;
+}
+
 .label-text{
   font-family: 'Rosemary';
-
 }
 
 .p-label{
     color: #474747;
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: space-evenly;
 }
-
-// .cpf{
-//   margin-left: 35%;
-// }
 
 .delete-button{
   --background: #ff2626;
@@ -48,6 +44,15 @@
 
 .update-button{
   --background: #ffac26;
+}
+
+.add-campo{
+  --background: #55db3a;
+  text-align: right;
+}
+
+.add-campo-button{
+  --background: #55db3a;
 }
 
 ion-item{
@@ -68,4 +73,15 @@ ion-list{
   --background: #ffac26;
 }
 
-//ion-butto
+.teste{
+  text-align: center;
+}
+
+
+.block-nome{
+  //flex-grow: 1;
+  display: inline-block;
+  width: 50%;
+}
+
+

@@ -41,12 +41,12 @@ export class HomePage {
 
     //segunda maneira de chamar todos os documentos de uma coleção
     collectionRef.valueChanges().subscribe((data) => {
-      this.userVetor = data as User[];   
+      this.userVetor = data as User[];
       this.setExpandedFalse();
       console.log(this.userVetor);
     });
 
-    
+
   }
 
   async deleteUser(user: User): Promise<void> {
@@ -74,75 +74,97 @@ export class HomePage {
 
     await alert.present();
   }
-  
-  async updateCampo(user: User, campo: string){
+
+  async updateCampo(user: User, campo: string) {
     const alert = await this.alertCtrl.create({
       //header: 'Please enter your info',    
       inputs: [
         {
           placeholder: campo,
           name: 'dadoInput',
-
-        },    
-      ],
-      buttons: [{
-        text: 'OK',
-        handler: async (dados) => {
-          try {
-            await this.firebaseService.updateUser(user.uid,campo,dados.dadoInput);
-            this.toast.showToast('Usuário atualizado com sucesso!');
-          } catch (error) {
-            this.toast.showToast('Erro ao atualizar usuário!');
-          }
         },
-      }],
+      ],
+      buttons: [
+        {
+          text: 'OK',
+          handler: async (dados) => {
+            if (dados.dadoInput != '') {
+              try {
+                await this.firebaseService.updateUser(user.uid, campo, dados.dadoInput);
+                this.toast.showToast('Usuário atualizado com sucesso!');
+              } catch (error) {
+                this.toast.showToast('Erro ao atualizar usuário!');
+              }
+            } else {
+              this.toast.showToast('Campo vazio!');
+              this.updateCampo(user, campo);
+            }
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        }
+      ],
     });
 
     await alert.present();
   }
 
-  async createCampo(user: User){
+  async createCampo(user: User) {
     const alert = await this.alertCtrl.create({
       //header: 'Please enter your info',    
       inputs: [
         {
           placeholder: 'campo',
           name: 'campoInput',
-        },    
+        },
         {
           placeholder: 'dado',
           name: 'dadoInput',
         }
       ],
-      buttons: [{
-        text: 'OK',
-        handler: async (dados) => {
-          try {
-            await this.firebaseService.updateUser(user.uid,dados.campoInput,dados.dadoInput);
-            this.toast.showToast('Usuário atualizado com sucesso!');
-          } catch (error) {
-            this.toast.showToast('Erro ao atualizar usuário!');
-          }
+      buttons: [
+        {
+          text: 'OK',
+          handler: async (dados) => {
+            if (dados.campoInput != '' && dados.dadoInput != '') {
+              try {
+                await this.firebaseService.updateUser(user.uid, dados.campoInput, dados.dadoInput);
+                this.toast.showToast('Usuário atualizado com sucesso!');
+              } catch (error) {
+                this.toast.showToast('Erro ao atualizar usuário!');
+              }
+            }
+            else {
+              this.toast.showToast('Campo vazio!');
+              this.createCampo(user);
+            }
+          },
         },
-      }],
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        }
+      ],
     });
 
     await alert.present();
   }
-  
 
-  setExpandedFalse(){
-   this.userVetor.forEach(item => {
+
+  setExpandedFalse() {
+    this.userVetor.forEach(item => {
       item.isExpanded = false;
     });
   }
 
-  expand(i: number){
+  expand(i: number) {
     this.userVetor[i].isExpanded = !this.userVetor[i].isExpanded;
     console.log(this.userVetor);
   }
 
-  deleteCampo(user: User,campo: string){
+  deleteCampo(user: User, campo: string) {
     this.firebaseService.deleteCampo(user, campo);
     user.isExpanded = true;
   }
