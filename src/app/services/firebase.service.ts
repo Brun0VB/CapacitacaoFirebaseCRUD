@@ -9,6 +9,7 @@ import { ToastService } from './toast.service';
 import { NavegacaoService } from './navegacao.service';
 
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -96,9 +97,9 @@ export class FirebaseService {
     }
   }
 
-  public async updateUser(user: User,campo: string,dado: any): Promise<void> {
+  public async updateUser(id: string,campo: string,dado: any): Promise<void> {
     try {
-      await this.fireStore.collection('users').doc(user.uid).update({
+      await this.fireStore.collection('users').doc(id).update({
         [campo]: dado,
       });
     } catch (error) {

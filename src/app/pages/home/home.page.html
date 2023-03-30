@@ -19,13 +19,41 @@
           *ngFor="let user of userVetor; let i=index">
           <ion-label class="label-text">{{user.nome}}{{user.cpf}}
           <h2 *ngIf="user.isExpanded" class="p-label">
-            <h3 *ngIf="user.nome != null">Nome:  {{user.nome}}<br><ion-button (click)="deleteCampo(user,'nome')">Delete</ion-button></h3> 
-            <h3 *ngIf="user.cep != null">CEP:  {{user.cep}}<br><ion-button (click)="deleteCampo(user,'cep')">Delete</ion-button></h3>
-            <h3 *ngIf="user.cidade != null"> Cidade:  {{user.cidade}}<br><ion-button (click)="deleteCampo(user,'cidade')">Delete</ion-button></h3>
-            <h3 *ngIf="user.endereco != null">Endereço  {{user.endereco}}<br><ion-button (click)="deleteCampo(user,'endereco')">Delete</ion-button></h3>
-            <h3 *ngIf="user.email != null">E-mail:  {{user.email}}<br><ion-button (click)="deleteCampo(user,'email')">Delete</ion-button></h3>
-            <h3 *ngIf="user.cpf != null">CPF:  {{user.cpf}}<br><ion-button (click)="deleteCampo(user,'cpf')">Delete</ion-button></h3>
-            <h3 *ngIf="user.uid != null">Id:  {{user.uid}}<br><ion-button (click)="deleteCampo(user,'uid')">Delete</ion-button></h3>
+            <h3 *ngIf="user.nome != null">Nome:  {{user.nome}}
+              <br>
+              <ion-button (click)="deleteCampo(user,'nome')">Delete</ion-button>
+              <ion-button (click)="updateCampo(user,'nome')">Update</ion-button>
+            </h3> 
+            <h3 *ngIf="user.cep != null">CEP:  {{user.cep}}
+              <br>
+              <ion-button (click)="deleteCampo(user,'cep')">Delete</ion-button>
+              <ion-button (click)="updateCampo(user,'cep')">Update</ion-button>
+            </h3>
+            <h3 *ngIf="user.cidade != null"> Cidade:  {{user.cidade}}
+              <br>
+              <ion-button (click)="deleteCampo(user,'cidade')">Delete</ion-button>
+              <ion-button (click)="updateCampo(user,'cidade')">Update</ion-button>
+            </h3>
+            <h3 *ngIf="user.endereco != null">Endereço  {{user.endereco}}
+              <br>
+              <ion-button (click)="deleteCampo(user,'endereco')">Delete</ion-button>
+              <ion-button (click)="updateCampo(user,'endereco')">Update</ion-button>
+            </h3>
+            <h3 *ngIf="user.email != null">E-mail:  {{user.email}}
+              <br>
+              <ion-button (click)="deleteCampo(user,'email')">Delete</ion-button>
+              <ion-button (click)="updateCampo(user,'email')">Update</ion-button>
+            </h3>
+            <h3 *ngIf="user.cpf != null">CPF:  {{user.cpf}}
+              <br>
+              <ion-button (click)="deleteCampo(user,'cpf')">Delete</ion-button>
+              <ion-button (click)="updateCampo(user,'cpf')">Update</ion-button>
+            </h3>
+            <h3 *ngIf="user.uid != null">Id:  {{user.uid}}
+              <!-- <br>
+              <ion-button (click)="deleteCampo(user,'uid')">Delete</ion-button>
+              <ion-button (click)="updadeCampo(user,'uid')">Delete</ion-button> -->
+            </h3>
             
           </h2></ion-label><br> 
           <ion-icon *ngIf="!user.isExpanded" name="chevron-down-outline" (click)="expand(i)" ></ion-icon>
