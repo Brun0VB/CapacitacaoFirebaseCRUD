@@ -19,7 +19,14 @@
           *ngFor="let user of userVetor; let i=index">
           <ion-label class="label-text">{{user.nome}}{{user.cpf}}
           <h2 *ngIf="user.isExpanded" class="p-label">
-            <h3></h3>
+            <h3 *ngFor="let field of user | keyvalue">
+              <h3 *ngIf="field.key != 'isExpanded' && field.value != null">
+                {{field.key}}: {{ field.value }}
+                <br>
+                <ion-button (click)="deleteCampo(user,field.key)">Delete</ion-button>
+                <ion-button (click)="updateCampo(user,field.key)">Update</ion-button>
+              </h3>             
+            </h3>
             <!-- <h3 *ngIf="user.nome != null">Nome:  {{user.nome}}
               <br>
               <ion-button (click)="deleteCampo(user,'nome')">Delete</ion-button>
