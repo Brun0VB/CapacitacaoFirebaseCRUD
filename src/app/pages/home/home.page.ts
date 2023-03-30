@@ -15,6 +15,7 @@ import { alertController } from '@ionic/core';
 export class HomePage {
   userVetor: User[] = [];
   segmentChange: String = 'visualizar';
+  documentData: any[] = [];
 
   constructor(
     private fireStore: AngularFirestore,

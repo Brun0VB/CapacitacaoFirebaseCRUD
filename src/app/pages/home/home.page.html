@@ -19,7 +19,8 @@
           *ngFor="let user of userVetor; let i=index">
           <ion-label class="label-text">{{user.nome}}{{user.cpf}}
           <h2 *ngIf="user.isExpanded" class="p-label">
-            <h3 *ngIf="user.nome != null">Nome:  {{user.nome}}
+            <h3></h3>
+            <!-- <h3 *ngIf="user.nome != null">Nome:  {{user.nome}}
               <br>
               <ion-button (click)="deleteCampo(user,'nome')">Delete</ion-button>
               <ion-button (click)="updateCampo(user,'nome')">Update</ion-button>
@@ -50,14 +51,14 @@
               <ion-button (click)="updateCampo(user,'cpf')">Update</ion-button>
             </h3>
             <h3 *ngIf="user.uid != null">Id:  {{user.uid}}
-              <!-- <br>
+               <br>
               <ion-button (click)="deleteCampo(user,'uid')">Delete</ion-button>
-              <ion-button (click)="updadeCampo(user,'uid')">Delete</ion-button> -->
+              <ion-button (click)="updadeCampo(user,'uid')">Delete</ion-button>
             </h3>
             <h3>
               <ion-button (click)="createCampo(user)">+ Campo</ion-button>
             </h3>
-            
+             -->
           </h2></ion-label><br> 
           <ion-icon *ngIf="!user.isExpanded" name="chevron-down-outline" (click)="expand(i)" ></ion-icon>
           <ion-icon *ngIf="user.isExpanded" name="chevron-up-outline" (click)="expand(i)" ></ion-icon>

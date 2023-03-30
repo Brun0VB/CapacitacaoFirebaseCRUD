@@ -107,5 +107,11 @@ export class FirebaseService {
     }
   }
 
-
+  // getDocumentData(id: string) {
+  //   try {
+  //     return this.fireStore.collection('users').doc(id);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 }
