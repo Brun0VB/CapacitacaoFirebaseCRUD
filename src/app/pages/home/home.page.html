@@ -54,6 +54,9 @@
               <ion-button (click)="deleteCampo(user,'uid')">Delete</ion-button>
               <ion-button (click)="updadeCampo(user,'uid')">Delete</ion-button> -->
             </h3>
+            <h3>
+              <ion-button (click)="createCampo(user)">+ Campo</ion-button>
+            </h3>
             
           </h2></ion-label><br> 
           <ion-icon *ngIf="!user.isExpanded" name="chevron-down-outline" (click)="expand(i)" ></ion-icon>
