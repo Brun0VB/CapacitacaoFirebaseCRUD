@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AlertController, ToastController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
+import { BuscaCEPService } from 'src/app/services/busca-cep.service';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,10 @@ export class HomePage {
   userVetor: User[] = [];
   segmentChange: String = 'visualizar';
   documentData: any[] = [];
+  cepsExtendidos: any[] = [];
 
   constructor(
+    private cepService: BuscaCEPService,
     private fireStore: AngularFirestore,
     private alertCtrl: AlertController,
     private auth: AngularFireAuth,
@@ -25,6 +28,7 @@ export class HomePage {
     private toast: ToastService
   ) {
     this.getUserData();
+    //this.guardaCepExtendido();
   }
 
   private async getUserData(): Promise<void> {
@@ -42,7 +46,7 @@ export class HomePage {
     //segunda maneira de chamar todos os documentos de uma coleção
     collectionRef.valueChanges().subscribe((data) => {
       this.userVetor = data as User[];
-      this.setExpandedFalse();
+      //this.setExpandedFalse();
       console.log(this.userVetor);
     });
 
@@ -161,7 +165,6 @@ export class HomePage {
 
   expand(i: number) {
     this.userVetor[i].isExpanded = !this.userVetor[i].isExpanded;
-    console.log(this.userVetor);
   }
 
   deleteCampo(user: User, campo: string) {
@@ -169,6 +172,37 @@ export class HomePage {
     user.isExpanded = true;
   }
 
+ async verificaCep(cep: any){
+    const enderecoColocado = await this.cepService.consultaCEP(cep);
+    let mensagem = '';
+    if (enderecoColocado.gia == '') {
+      mensagem = enderecoColocado.logradouro + ', ' + enderecoColocado.bairro + ', ' + enderecoColocado.localidade + ' - ' + enderecoColocado.uf;
+      console.log(mensagem);
+    }else{
+      mensagem = enderecoColocado.gia;
+    }  
+    console.log(enderecoColocado);
+    const alert = await this.alertCtrl.create({
+      header: 'Endereço',
+      subHeader: cep,
+      message:mensagem, 
+      buttons: [
+        {
+          text: 'OK',
+        },
+      ],
+    });
 
+    await alert.present();
+  }
+
+  // async guardaCepExtendido(){
+  //   await this.getUserData();
+  //   console.log(this.userVetor.length);
+  //   for(let i = 0; i < this.userVetor.length; i++){
+  //      this.cepsExtendidos.push(await this.verificaCep(this.userVetor[i].cep));
+  //   }
+  //   console.log(this.cepsExtendidos);
+  //}
 
 }

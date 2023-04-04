@@ -30,6 +30,7 @@
                   <br>
                   <ion-button class="delete-button" (click)="deleteCampo(user,field.key)">Delete</ion-button>
                   <ion-button class="update-button" (click)="updateCampo(user,field.key)">Update</ion-button>
+                  <ion-button *ngIf="field.key == 'cep'" (click)="verificaCep(field.value)">Consultar CEP</ion-button>
                 </h3>
                 <h3 *ngIf="field.key == 'uid'">
                   {{field.key}}: {{ field.value }}
